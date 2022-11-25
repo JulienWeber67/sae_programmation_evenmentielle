@@ -1,15 +1,27 @@
 from threading import Thread
 import socket
+import platform
 
 def Sending(socket):
-    while True:
+    while True :
         msg = input()
         msg = msg.encode('utf-8')
+        if msg == 'disconnect':
+            print('close')
+            break
         socket.send(msg)
+
+
 def Reception(socket):
     while True:
         requete_server = socket.recv(500)
         requete_server = requete_server.decode("utf-8")
+        if not requete_server : #Server disconnect
+            print("CLOSE connexion")
+            break
+        if requete_server == 'disconnect' :
+            print('closing')
+            break
         print(requete_server)
 
 Host = "localhost"
