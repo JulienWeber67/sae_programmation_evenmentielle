@@ -55,6 +55,7 @@ while message != "kill":
         # Fermeture
         conn.close()
         print("Fermeture de la socket client")
+        message = ""
     server_socket.close()
     print("Fermeture de la socket serveur")
     print("rebooting")

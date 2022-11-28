@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMainWindow
+from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMainWindow, QVBoxLayout
 
 while True :
     class MainWindow(QMainWindow):
@@ -18,12 +18,14 @@ while True :
             self.__list =[]
             test = QLabel(f"{list}")
             self.__nom = QLabel("")
+            layout = QVBoxLayout()
             grid.addWidget(lab, 0, 0)
             grid.addWidget(self.__text, 1, 0)
             grid.addWidget(ok, 2, 0)
             grid.addWidget(quit, 2, 1)
             grid.addWidget(self.__nom, 3, 0)
             grid.addWidget(test,0,2,1,1)
+            grid.addWidget(layout, 4,0)
 
             ok.clicked.connect(self.__actionOk)
             quit.clicked.connect(self.__actionQuitter)
