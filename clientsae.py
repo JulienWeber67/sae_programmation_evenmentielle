@@ -16,12 +16,12 @@ def Reception(socket):
     while True:
         requete_server = socket.recv(500)
         requete_server = requete_server.decode("utf-8")
-        if not requete_server : #Server disconnect
+        if not requete_server : #Server perdu
             print("CLOSE connexion")
             break
         if requete_server == 'disconnect' :
             print('closing')
-            break
+            socket.close()
         print(requete_server)
 
 Host = "localhost"

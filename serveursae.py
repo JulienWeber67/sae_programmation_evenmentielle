@@ -17,7 +17,7 @@ def Reception(client):
         if request_client == "kill":
             print("SERVER IS DEAD, Please press enter and start the server later")
             sys.exit()
-        if not request_client : #Client disconnect
+        if not request_client : #Client déco
             print("CLOSE connexion")
             break
 
