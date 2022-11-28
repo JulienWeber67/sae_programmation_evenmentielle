@@ -6,7 +6,7 @@ u=platform.platform()
 
 print(f"nom:{i},version :{k},platform :{u}")"""
 
-import socket
+"""import socket
 import sys
 while True:
 
@@ -22,7 +22,7 @@ while True:
         reply = input()
         conn.send(reply.encode())
         print(data)
-    """if data == "bye":
+    if data == "bye":
         reply3 = "arretclient"
         data = conn.recv(1024).decode()
         conn.send(reply3.encode())
@@ -30,5 +30,6 @@ while True:
      if data == "arret":
         conn.close()
         print("Le client et le serveur se sont arrêté")"""
+
 
 

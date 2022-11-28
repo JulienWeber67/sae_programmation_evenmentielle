@@ -41,19 +41,21 @@ while message != "kill":
             message = msgclient.decode()
             print(f"Message du client : {message}")
 
-            if message != "disconnect":
+            #if message != "disconnect":
                 # J'envoie un message
-                reply = input("Saisir un message : ")
-                conn.send(reply.encode())
-                print(f"Message {reply} envoyé")
+            reply = input("Saisir un message : ")
+            conn.send(reply.encode())
+            print(f"Message {reply} envoyé")
 
-            else:
+            #else:
 
-                reply = "disconect"
-                conn.send(reply.encode())
+            #reply = "disconect"
+            #conn.send(reply.encode())
 
         # Fermeture
         conn.close()
         print("Fermeture de la socket client")
     server_socket.close()
     print("Fermeture de la socket serveur")
+    print("rebooting")
+    message = ""
