@@ -9,7 +9,7 @@ while :
 import socket
 import threading
 
-host = "localhost" # "", "127.0.0.1
+host = "localhost"
 port = 10000
 
 print(f"Ouverture de la socket sur le serveur {host} port {port}")

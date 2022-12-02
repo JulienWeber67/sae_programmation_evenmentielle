@@ -34,6 +34,8 @@ while True:
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QLineEdit
 import sys
 import psutil
+import socket
+
 
 class TextEditDemo(QWidget):
     def __init__(self, parent=None):
@@ -42,7 +44,7 @@ class TextEditDemo(QWidget):
         self.i = 0
         self.setWindowTitle("QTextEdit")
         self.resize(750, 750)
-
+        self.__test = input("commande a entré :")
         self.textEdit = QTextEdit()
         self.textEdit.setEnabled(False)
         self.__msg = QLineEdit("")
@@ -63,7 +65,7 @@ class TextEditDemo(QWidget):
 
     def btnPress1_Clicked(self):
         text = self.__msg.text()
-        self.textEdit.append(f"Nouveau texte {text}")
+        self.textEdit.append(f"From serveur : {text}")
 
 
 
@@ -71,8 +73,14 @@ class TextEditDemo(QWidget):
         self.textEdit.setPlainText("")
 
     def btnPress3_Clicked(self):
-        text = psutil.cpu_percent(4)
-        self.textEdit.append(f'The CPU usage is: {text}')
+        text = self.__test.text()
+        self.textEdit.append(f"Nouveau texte {text}")
+
+        """text = self.__msg.text()
+        self.textEdit.append(f"to serveur {text}")
+        message = f"{text}"
+        client_socket.send(message.encode())
+        print("Message envoyé")"""
 
 
 if __name__ == '__main__':
