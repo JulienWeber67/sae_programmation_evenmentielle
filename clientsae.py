@@ -1,37 +1,33 @@
-from threading import Thread
+"""connect
+while :
+    envoi
+
+    reception
+
+    fermeture socket"""
+
 import socket
-import platform
+import threading
 
-def Sending(socket):
-    while True :
-        msg = input()
-        msg = msg.encode('utf-8')
-        if msg == 'disconnect':
-            print('close')
-            break
-        socket.send(msg)
+host = "localhost" # "", "127.0.0.1
+port = 10000
 
+print(f"Ouverture de la socket sur le serveur {host} port {port}")
+client_socket = socket.socket()
+client_socket.connect((host, port))
+print("Serveur est connecté")
 
-def Reception(socket):
-    while True:
-        requete_server = socket.recv(500)
-        requete_server = requete_server.decode("utf-8")
-        if not requete_server : #Server perdu
-            print("CLOSE connexion")
-            break
-        if requete_server == 'disconnect' :
-            print('closing')
-            socket.close()
-        print(requete_server)
+data = ("")
 
-Host = "localhost"
-Port = 18000
+while  data != 'disconnect':
 
-socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-socket.connect((Host,Port))
+    message = input("Message au serveur : ")
+    client_socket.send(message.encode())
+    print("Message envoyé")
 
-envoi = Thread(target=Sending,args=[socket])
-reception = Thread(target=Reception,args=[socket])
+    data = client_socket.recv(1024).decode()
+    print(f"Message du serveur : {data}")
 
-envoi.start()
-reception.start()
+# Fermeture de la socket du client
+client_socket.close()
+print("Socket fermée")

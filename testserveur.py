@@ -16,6 +16,7 @@ fermeture client
 fermeture serveur"""
 
 import socket
+import threading
 
 msgclient =''
 message =""

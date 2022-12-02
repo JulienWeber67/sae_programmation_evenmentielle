@@ -31,9 +31,9 @@ while True:
         conn.close()
         print("Le client et le serveur se sont arrêté")"""
 
-from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QLineEdit
 import sys
-
+import psutil
 
 class TextEditDemo(QWidget):
     def __init__(self, parent=None):
@@ -41,16 +41,20 @@ class TextEditDemo(QWidget):
 
         self.i = 0
         self.setWindowTitle("QTextEdit")
-        self.resize(300, 270)
+        self.resize(750, 750)
 
         self.textEdit = QTextEdit()
         self.textEdit.setEnabled(False)
+        self.__msg = QLineEdit("")
         self.btnPress1 = QPushButton("Add message")
         self.btnPress2 = QPushButton("Clear")
+        self.btnPress3 = QPushButton("Register")
 
         layout = QVBoxLayout()
         layout.addWidget(self.textEdit)
+        layout.addWidget(self.__msg)
         layout.addWidget(self.btnPress1)
+        layout.addWidget(self.btnPress3)
         layout.addWidget(self.btnPress2)
         self.setLayout(layout)
 
@@ -58,13 +62,17 @@ class TextEditDemo(QWidget):
         self.btnPress2.clicked.connect(self.btnPress2_Clicked)
 
     def btnPress1_Clicked(self):
-        self.textEdit.append(f"Nouveau texte {self.i}")
-        self.i += 1
-#        self.textEdit.setPlainText("Hello PyQt5!\nfrom pythonpyqt.com")
+        text = self.__msg.text()
+        self.textEdit.append(f"Nouveau texte {text}")
+
+
 
     def btnPress2_Clicked(self):
         self.textEdit.setPlainText("")
-        self.textEdit.setHtml("<font color='red' size='6'><red>Hello PyQt5!\nHello</font>")
+
+    def btnPress3_Clicked(self):
+        text = psutil.cpu_percent(4)
+        self.textEdit.append(f'The CPU usage is: {text}')
 
 
 if __name__ == '__main__':
@@ -72,6 +80,5 @@ if __name__ == '__main__':
     win = TextEditDemo()
     win.show()
     sys.exit(app.exec_())
-
 
 

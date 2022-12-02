@@ -7,6 +7,7 @@ while :
     fermeture socket"""
 
 import socket
+import threading
 
 host = "localhost" # "", "127.0.0.1
 port = 10000
