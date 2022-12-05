@@ -43,6 +43,16 @@ while message != "kill":
             msgclient = conn.recv(1024) # message en by
             message = msgclient.decode()
             print(f"Message du client : {message}")
+            import csv
+
+            with open('testing.csv', 'w', newline='') as csvfile:
+                fieldnames = ['port', 'machine']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+                writer.writeheader()
+                writer.writerow({'port': input('port :'), 'machine': input('machine :')})
+                writer.writerow({'port': input('port :'), 'machine': input('machine :')})
+                writer.writerow({'port': input('port :'), 'machine': input('machine :')})
 
             if message == "OS" :
                 i = platform.system()

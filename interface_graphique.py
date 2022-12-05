@@ -1,45 +1,60 @@
+from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QLineEdit
 import sys
+import psutil
+import socket
 
-from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QLabel, QLineEdit, QPushButton, QMainWindow, QVBoxLayout
 
-while True :
-    class MainWindow(QMainWindow):
-        def __init__(self):
-            super().__init__()
-            widget = QWidget()
-            self.setCentralWidget(widget)
-            grid = QGridLayout()
-            widget.setLayout(grid)
-            lab = QLabel("Chat client-serveur")
-            self.__text = QLineEdit("")
-            ok = QPushButton("send")
-            quit = QPushButton("Quitter")
-            self.__list =[]
-            test = QLabel(f"{list}")
-            self.__nom = QLabel("")
-            layout = QVBoxLayout()
-            grid.addWidget(lab, 0, 0)
-            grid.addWidget(self.__text, 1, 0)
-            grid.addWidget(ok, 2, 0)
-            grid.addWidget(quit, 2, 1)
-            grid.addWidget(self.__nom, 3, 0)
-            grid.addWidget(test,0,2,1,1)
-            grid.addWidget(layout, 4,0)
+class TextEditDemo(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
-            ok.clicked.connect(self.__actionOk)
-            quit.clicked.connect(self.__actionQuitter)
-            self.setWindowTitle("Une première fenêtre")
-        def __actionOk(self):
-            msg = self.__text.text()
-            self.__nom.setText(f"from srv: {msg}")
-            self.__list.append(msg)
+        self.i = 0
+        self.setWindowTitle("QTextEdit")
+        self.resize(750, 750)
+        self.__test = QLineEdit("commande a entré :")
+        self.textEdit = QTextEdit()
+        self.textEdit.setEnabled(False)
+        self.zonetext = QTextEdit()
+        self.zonetext.setEnabled(False)
+        self.__msg = QLineEdit("")
+        self.btnPress1 = QPushButton("Add message")
+        self.btnPress2 = QPushButton("Clear")
+        self.btnPress3 = QPushButton("Register")
 
-        def __actionQuitter(self):
-            QCoreApplication.exit(0)
+        layout = QVBoxLayout()
+        layout.addWidget(self.textEdit)
+        layout.addWidget(self.__msg)
+        layout.addWidget(self.__test)
+        layout.addWidget(self.zonetext)
+        layout.addWidget(self.btnPress1)
+        layout.addWidget(self.btnPress3)
+        layout.addWidget(self.btnPress2)
+        self.setLayout(layout)
 
-    if __name__ == '__main__':
-        app = QApplication(sys.argv)
-        window = MainWindow()
-        window.show()
-        app.exec()
+        self.btnPress1.clicked.connect(self.btnPress1_Clicked)
+        self.btnPress2.clicked.connect(self.btnPress2_Clicked)
+
+    def btnPress1_Clicked(self):
+        text = self.__msg.text()
+        self.textEdit.append(f"From serveur : {text}")
+
+    def btnPress2_Clicked(self):
+        self.textEdit.setPlainText("")
+        self.zonetext.setPlainText("")
+
+    def btnPress3_Clicked(self):
+        text = self.__test.text()
+        self.zonetext.append(f"Nouveau texte {text}")
+
+        """text = self.__msg.text()
+        self.textEdit.append(f"to serveur {text}")
+        message = f"{text}"
+        client_socket.send(message.encode())
+        print("Message envoyé")"""
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    win = TextEditDemo()
+    win.show()
+    sys.exit(app.exec_()) 

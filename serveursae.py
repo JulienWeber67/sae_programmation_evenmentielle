@@ -17,12 +17,14 @@ fermeture serveur"""
 
 import socket
 import threading
+import psutil
+import platform
 
 msgclient =''
 message =""
 while message != "kill":
 
-    host = "0.0.0.0"
+    host = "localhost" # "", "127.0.0.1
     port = 10000
 
     server_socket = socket.socket()
@@ -42,11 +44,38 @@ while message != "kill":
             message = msgclient.decode()
             print(f"Message du client : {message}")
 
-            #if message != "disconnect":
-                # J'envoie un message
-            reply = input("Saisir un message : ")
-            conn.send(reply.encode())
-            print(f"Message {reply} envoyé")
+            if message == "OS" :
+                i = platform.system()
+                k = platform.release()
+                u = platform.platform()
+
+                reply = f"nom:{i},version :{k},platform :{u}"
+                conn.send(reply.encode())
+
+            if message == "RAM":
+                reply = f"'ram total : {psutil.virtual_memory()[0] } 'bits'"
+                conn.send(reply.encode())
+                reply = f"'ram utilisé :{psutil.virtual_memory()[3]} 'bits' "
+                conn.send(reply.encode())
+                reply = f"'ram restant : {psutil.virtual_memory()[4]} 'bits'"
+                conn.send(reply.encode())
+
+            if message == "name" :
+                reply = f"'hostname : {socket.gethostname()}"
+                conn.send(reply.encode())
+
+            if message == "CPU" :
+                reply = f"'The CPU usage is: {psutil.cpu_percent(4)}'%'"
+                conn.send(reply.encode())
+
+            if message == "ip" :
+                reply = f"address ip : {address}"
+                conn.send(reply.encode())
+
+            if message != "OS" and message != "RAM" and message != "name" and message != "CPU" and message != "ip" :
+                reply = input("Saisir un message : ")
+                conn.send(reply.encode())
+                print(f"Message {reply} envoyé")
 
             #else:
 
@@ -56,10 +85,8 @@ while message != "kill":
         # Fermeture
         conn.close()
         print("Fermeture de la socket client")
-        if message == "disconnect":
-            message = ""
+        message = ""
     server_socket.close()
     print("Fermeture de la socket serveur")
     print("rebooting")
-    if message == "reset":
-        message = ""
+    message = ""
