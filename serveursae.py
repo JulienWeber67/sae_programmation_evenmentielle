@@ -24,7 +24,7 @@ msgclient =''
 message =""
 while message != "kill":
 
-    host = "localhost" # "", "127.0.0.1
+    host = "0.0.0.0" # "", "127.0.0.1
     port = 10000
 
     server_socket = socket.socket()
@@ -82,11 +82,14 @@ while message != "kill":
             #reply = "disconect"
             #conn.send(reply.encode())
 
+
         # Fermeture
-        conn.close()
-        print("Fermeture de la socket client")
-        message = ""
-    server_socket.close()
-    print("Fermeture de la socket serveur")
-    print("rebooting")
-    message = ""
+            conn.close()
+            print("Fermeture de la socket client")
+            if message == "disconnect":
+                message = ""
+        server_socket.close()
+        print("Fermeture de la socket serveur")
+        if message == "reset":
+            print("rebooting")
+            message = ""

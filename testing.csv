@@ -1,4 +1,2 @@
 port,machine
-1000,test
-1800,client
-78,machine
+10000,"('127.0.0.1', 59725)"

@@ -19,6 +19,8 @@ import socket
 import threading
 import psutil
 import platform
+import pyautogui
+import os
 
 msgclient =''
 message =""
@@ -50,9 +52,14 @@ while message != "kill":
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
                 writer.writeheader()
-                writer.writerow({'port': input('port :'), 'machine': input('machine :')})
-                writer.writerow({'port': input('port :'), 'machine': input('machine :')})
-                writer.writerow({'port': input('port :'), 'machine': input('machine :')})
+                writer.writerow({'port': port , 'machine': address})
+
+            if message == "commande" :
+
+                value = pyautogui.prompt("Enter Shell Command")
+                stream = os.popen(value)
+                out = stream.read()
+                pyautogui.alert(out)
 
             if message == "OS" :
                 i = platform.system()
@@ -95,8 +102,10 @@ while message != "kill":
         # Fermeture
         conn.close()
         print("Fermeture de la socket client")
-        message = ""
+        if message == "disconnect":
+            message = ""
     server_socket.close()
     print("Fermeture de la socket serveur")
-    print("rebooting")
-    message = ""
+    if message == "reset":
+        print("rebooting")
+        message = ""
