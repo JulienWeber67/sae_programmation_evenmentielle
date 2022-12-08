@@ -21,6 +21,7 @@ import psutil
 import platform
 import pyautogui
 import os
+import csv
 
 msgclient =''
 message =""
@@ -45,7 +46,7 @@ while message != "kill":
             msgclient = conn.recv(1024) # message en by
             message = msgclient.decode()
             print(f"Message du client : {message}")
-            import csv
+
 
             with open('testing.csv', 'w', newline='') as csvfile:
                 fieldnames = ['port', 'machine']
@@ -90,6 +91,7 @@ while message != "kill":
                 conn.send(reply.encode())
 
             if message != "OS" and message != "RAM" and message != "name" and message != "CPU" and message != "ip" :
+
                 reply = input("Saisir un message : ")
                 conn.send(reply.encode())
                 print(f"Message {reply} envoyé")

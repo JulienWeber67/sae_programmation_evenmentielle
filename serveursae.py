@@ -19,6 +19,9 @@ import socket
 import threading
 import psutil
 import platform
+import pyautogui
+import os
+import csv
 
 msgclient =''
 message =""
@@ -43,6 +46,19 @@ while message != "kill":
             msgclient = conn.recv(1024) # message en by
             message = msgclient.decode()
             print(f"Message du client : {message}")
+
+            with open('testing.csv', 'w', newline='') as csvfile:
+                fieldnames = ['port', 'machine']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+                writer.writeheader()
+                writer.writerow({'port': port, 'machine': address})
+
+            if message == "commande":
+                value = pyautogui.prompt("Enter Shell Command")
+                stream = os.popen(value)
+                out = stream.read()
+                pyautogui.alert(out)
 
             if message == "OS" :
                 i = platform.system()
