@@ -14,8 +14,8 @@ class TextEditDemo(QWidget):
         self.__test = QLineEdit("commande a entré :")
         self.textEdit = QTextEdit()
         self.textEdit.setEnabled(False)
-        self.zonetext = QTextEdit()
-        self.zonetext.setEnabled(False)
+        self.textEdit2 = QTextEdit()
+        self.textEdit2.setEnabled(False)
         self.__msg = QLineEdit("")
         self.btnPress1 = QPushButton("Add message")
         self.btnPress2 = QPushButton("Clear")
@@ -25,7 +25,7 @@ class TextEditDemo(QWidget):
         layout.addWidget(self.textEdit)
         layout.addWidget(self.__msg)
         layout.addWidget(self.__test)
-        layout.addWidget(self.zonetext)
+        layout.addWidget(self.textEdit2)
         layout.addWidget(self.btnPress1)
         layout.addWidget(self.btnPress3)
         layout.addWidget(self.btnPress2)
@@ -40,17 +40,11 @@ class TextEditDemo(QWidget):
 
     def btnPress2_Clicked(self):
         self.textEdit.setPlainText("")
-        self.zonetext.setPlainText("")
+        self.textEdit2.setPlainText("")
 
     def btnPress3_Clicked(self):
         text = self.__test.text()
-        self.zonetext.append(f"Nouveau texte {text}")
-
-        """text = self.__msg.text()
-        self.textEdit.append(f"to serveur {text}")
-        message = f"{text}"
-        client_socket.send(message.encode())
-        print("Message envoyé")"""
+        self.textEdit2.append(f"Nouveau texte {text}")
 
 
 if __name__ == '__main__':
