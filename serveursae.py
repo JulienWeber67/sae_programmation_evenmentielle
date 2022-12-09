@@ -99,13 +99,14 @@ while message != "kill":
             #conn.send(reply.encode())
 
 
-        # Fermeture
+        # Fermetures
             conn.close()
             print("Fermeture de la socket client")
             if message == "disconnect":
                 message = ""
         server_socket.close()
         print("Fermeture de la socket serveur")
+        print("arrêt serveur")
         if message == "reset":
             print("rebooting")
             message = ""
